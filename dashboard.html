@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | CWS Multimedia Connect</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="dashboard">
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-badge">CWS</span>
+        <span class="logo-text">MULTIMEDIA <span>CONNECT</span></span>
+      </a>
+      <div class="nav-actions">
+        <a href="pricing.html" class="nav-ghost">Pricing</a>
+        <button id="logoutBtn" class="nav-solid" type="button">Log out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section class="page-hero compact">
+      <div class="container narrow">
+        <span class="subheading">USER DASHBOARD</span>
+        <h1>Account overview</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="userSummary" class="dashboard-grid"></div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Amount</th>
+                <th>Method</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody"></tbody>
+          </table>
+        </div>
+
+        <div id="adminSection" class="table-wrap" style="margin-top: 36px; display: none;">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody id="adminUserList"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

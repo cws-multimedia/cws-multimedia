@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In | CWS Multimedia Connect</title>
+  <meta name="description" content="Log in to CWS Multimedia Connect to manage your design orders and account." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --auth-panel: rgba(255,255,255,0.96);
+      --auth-border: rgba(15, 18, 24, 0.08);
+      --auth-text: #111827;
+      --auth-muted: #5b6472;
+      --auth-line: rgba(15, 18, 24, 0.08);
+      --auth-shadow: 0 30px 80px rgba(15, 18, 24, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(145deg, #0a0d12 0%, #141a23 100%);
+      color: var(--auth-text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(24, 122, 216, 0.12), transparent 35%),
+        linear-gradient(145deg, #0a0d12 0%, #141a23 100%);
+    }
+
+    .auth-shell {
+      width: min(1260px, 100%);
+      min-height: 820px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--auth-shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .auth-showcase {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(8, 10, 14, 0.7), rgba(8, 10, 14, 0.9)),
+        linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      padding: 34px 30px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    .auth-showcase::before,
+    .auth-showcase::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+    }
+
+    .auth-showcase::before {
+      width: 280px;
+      height: 280px;
+      background: rgba(86, 107, 128, 0.22);
+      top: 30px;
+      right: 10%;
+    }
+
+    .auth-showcase::after {
+      width: 260px;
+      height: 260px;
+      background: rgba(255,255,255,0.08);
+      bottom: 40px;
+      left: 8%;
+    }
+
+    .showcase-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 42px;
+    }
+
+    .mini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      color: rgba(255,255,255,0.85);
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mini-dot {
+      width: 8px;
+      height: 8px;
+      background: #3ddc97;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(61,220,151,0.7);
+    }
+
+    .showcase-grid {
+      position: relative;
+      z-index: 2;
+      height: 560px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)), rgba(10, 13, 18, 0.45);
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+
+    .showcase-grid::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 0%, rgba(255,255,255,0.02) 100%), linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 100%);
+      pointer-events: none;
+    }
+
+    .showcase-card {
+      position: absolute;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(16, 22, 27, 0.9);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .showcase-card.large {
+      width: 58%; height: 64%; left: 40px; top: 52px; transform: rotate(-8deg);
+      background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.28)), url('candid-candy.jpg');
+      background-size: cover; background-position: center;
+    }
+
+    .showcase-card.medium {
+      width: 42%; height: 38%; right: 38px; top: 90px; transform: rotate(8deg);
+      background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.3)), url('jah-prayzah.jpg');
+      background-size: cover; background-position: center;
+    }
+
+    .showcase-card.small {
+      width: 36%; height: 30%; left: 90px; bottom: 52px; transform: rotate(6deg);
+      background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.38)), url('holy-10.jpg');
+      background-size: cover; background-position: center;
+    }
+
+    .showcase-card.tiny {
+      width: 28%; height: 26%; right: 70px; bottom: 34px; transform: rotate(-6deg);
+      background-image: linear-gradient(rgba(0,0,0,0.16), rgba(0,0,0,0.35)), url('church-service.jpg');
+      background-size: cover; background-position: center;
+    }
+
+    .floating-tag {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      background: rgba(13,16,21,0.92);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.92);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.24);
+      z-index: 2;
+    }
+
+    .tag-1 { top: 28px; left: 24px; }
+    .tag-2 { top: 110px; right: 18px; }
+    .tag-3 { left: 24px; bottom: 130px; }
+    .tag-4 { right: 18px; bottom: 20px; }
+
+    .showcase-node {
+      position: absolute;
+      z-index: 1;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.04);
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .node-1 { width: 170px; height: 92px; left: 30px; top: 200px; }
+    .node-2 { width: 150px; height: 86px; right: 36px; top: 250px; }
+    .node-3 { width: 120px; height: 72px; right: 160px; bottom: 100px; }
+
+    .showcase-footer {
+      position: relative;
+      z-index: 2;
+      margin-top: 20px;
+      padding: 26px 4px 0;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .showcase-footer h2 {
+      font-size: clamp(1.8rem, 2vw, 2.4rem);
+      line-height: 1.2;
+      margin: 0 0 8px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .showcase-footer p {
+      margin: 0;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    .auth-panel {
+      background: var(--auth-panel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 40px 28px;
+    }
+
+    .auth-card {
+      width: min(100%, 480px);
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--auth-border);
+      border-radius: 24px;
+      padding: 30px 26px 18px;
+      box-shadow: 0 20px 52px rgba(15,18,24,0.06);
+    }
+
+    .auth-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: var(--auth-text);
+    }
+
+    .logo-badge {
+      background: #121821;
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+    }
+
+    .logo-text {
+      font-size: 0.96rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #111827;
+    }
+
+    .logo-text span { color: var(--auth-muted); font-weight: 600; }
+
+    .auth-header { text-align: left; margin-bottom: 18px; }
+
+    .auth-header .eyebrow {
+      margin: 0 0 8px;
+      color: var(--auth-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .auth-header h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 2vw, 2.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      color: #0f172a;
+    }
+
+    .social-auth { display: grid; gap: 12px; margin-bottom: 18px; }
+
+    .social-btn {
+      width: 100%;
+      border: 1px solid rgba(15,18,24,0.12);
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(15, 18, 24, 0.08);
+    }
+
+    .social-btn svg {
+      display: block;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--auth-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 18px 0 16px;
+    }
+
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--auth-line);
+    }
+
+    .auth-form { display: grid; gap: 14px; }
+
+    .auth-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.78rem;
+      color: var(--auth-muted);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .auth-form input {
+      width: 100%;
+      border: 1px solid rgba(15,18,24,0.14);
+      border-radius: 12px;
+      padding: 15px 16px;
+      font-size: 1rem;
+      color: #111827;
+      background: rgba(255,255,255,0.8);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .auth-form input:focus {
+      border-color: rgba(15,18,24,0.3);
+      box-shadow: 0 0 0 4px rgba(15,18,24,0.06);
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      background: #0f1218;
+      color: #ffffff;
+      padding: 16px 18px;
+      font-size: 0.96rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 14px 22px rgba(15, 18, 24, 0.18);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 28px rgba(15,18,24,0.22);
+    }
+
+    .switch-link {
+      margin: 18px 0 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--auth-muted);
+    }
+
+    .switch-link a { color: #111827; font-weight: 800; }
+
+    .recaptcha {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      text-align: center;
+      color: var(--auth-muted);
+    }
+
+    @media (max-width: 900px) {
+      .auth-shell { grid-template-columns: 1fr; min-height: auto; }
+      .auth-showcase { display: none; }
+      .auth-panel { padding: 26px 18px; }
+      .auth-card { width: 100%; }
+    }
+  </style>
+</head>
+<body class="auth-page">
+  <div class="auth-shell">
+    <aside class="auth-showcase" aria-label="CWS portfolio showcase">
+      <div class="showcase-top">
+        <div class="mini-badge"><span class="mini-dot"></span> Creative Studio</div>
+        <div class="mini-badge">Kadoma, Zimbabwe</div>
+      </div>
+
+      <div class="showcase-grid">
+        <div class="showcase-card large"></div>
+        <div class="showcase-card medium"></div>
+        <div class="showcase-card small"></div>
+        <div class="showcase-card tiny"></div>
+
+        <div class="floating-tag tag-1">Event Flyers</div>
+        <div class="floating-tag tag-2">Brand Identity</div>
+        <div class="floating-tag tag-3">Concert Art</div>
+        <div class="floating-tag tag-4">Merch Design</div>
+
+        <span class="showcase-node node-1"></span>
+        <span class="showcase-node node-2"></span>
+        <span class="showcase-node node-3"></span>
+      </div>
+
+      <div class="showcase-footer">
+        <h2>Build together, faster</h2>
+        <p>High Quality Visuals for Brands & Events</p>
+      </div>
+    </aside>
+
+    <main class="auth-panel">
+      <div class="auth-card">
+        <div class="auth-brand">
+          <span class="logo-badge">CWS</span>
+          <span class="logo-text">Multimedia <span>Connect</span></span>
+        </div>
+
+        <div class="auth-header">
+          <p class="eyebrow">Creative workspace</p>
+          <h1>Welcome to CWS Multimedia</h1>
+        </div>
+
+        <div class="social-auth" aria-label="Social login options">
+          <button type="button" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.27v3.13C3.26 21.3 7.31 24 12 24z"/>
+              <path fill="#FBBC05" d="M5.28 14.25c-.25-.72-.38-1.49-.38-2.25s.13-1.53.38-2.25V6.62H1.27C.46 8.23 0 10.06 0 12s.46 3.77 1.27 5.38l4.01-3.13z"/>
+              <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.27 6.62l4.01 3.13c.95-2.83 3.6-4.93 6.72-4.93z"/>
+            </svg>
+            Continue with Google
+          </button>
+          <button type="button" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 170 170" fill="#000000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.82.25-9.69-1.8-14.63-6.14-3.23-2.73-7.1-7.38-11.61-13.95-6.52-9.39-11.62-19.89-15.3-31.51-3.69-11.62-5.54-22.75-5.54-33.39 0-14.28 3.53-26.04 10.58-35.28 7.06-9.23 15.89-13.93 26.51-14.09 4.94 0 10.15 1.22 15.64 3.67 5.48 2.44 9.17 3.67 11.06 3.67 1.63 0 5.49-1.28 11.58-3.83 6.09-2.56 11.28-3.75 15.57-3.58 11.75.95 20.89 5.38 27.42 13.3-10.42 6.32-15.52 15.22-15.3 26.7.22 9.03 3.64 16.59 10.25 22.68 6.61 6.09 14.38 9.61 23.3 10.56-2.44 7.29-5.7 14.54-9.78 21.75zM119.22 31.86c0-6.73 2.45-13.14 7.36-19.23 4.91-6.09 11.09-9.84 18.53-11.26.22 1.3.33 2.28.33 2.94 0 6.63-2.52 13.12-7.56 19.47-5.04 6.35-11.19 10.1-18.45 11.26-.22-.87-.33-1.93-.33-3.18z"/>
+            </svg>
+            Continue with Apple
+          </button>
+          <button type="button" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#0f172a" d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 5.5A1.5 1.5 0 0112.5 6h3A1.5 1.5 0 0117 7.5v9A1.5 1.5 0 0115.5 18h-3A1.5 1.5 0 0111 16.5v-9zm-5 2.5A1.5 1.5 0 018.5 8h3A1.5 1.5 0 0113 9.5v9A1.5 1.5 0 0111.5 20h-3A1.5 1.5 0 017 18.5v-9z"/></svg>
+            Continue with SSO
+          </button>
+        </div>
+
+        <div class="divider">Or continue with email</div>
+
+        <form id="loginForm" class="auth-form">
+          <div>
+            <label for="loginEmail">Enter your email</label>
+            <input id="loginEmail" name="email" type="email" placeholder="name@example.com" required />
+          </div>
+
+          <button type="submit" class="primary-btn">Continue</button>
+        </form>
+
+        <p class="switch-link">Don't you have an account? <a href="signup.html">Sign up</a></p>
+        <p class="recaptcha">This site is protected by reCAPTCHA</p>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

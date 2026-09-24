@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing | CWS Multimedia Connect</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-badge">CWS</span>
+        <span class="logo-text">MULTIMEDIA <span>CONNECT</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="book.html" class="btn-nav">Book Design</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-ghost">Sign In</a>
+        <a href="signup.html" class="nav-solid">Create Account</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section class="page-hero compact">
+      <div class="container narrow">
+        <span class="subheading">PRICING</span>
+        <h1>Choose a package and book online.</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="card-top">
+              <h3>Flyer / Poster Design</h3>
+              <p class="price">$15 <span class="currency-tag">USD / ZWG equivalent</span></p>
+              <p class="price-desc">Perfect for concerts, church programs, and promo posts.</p>
+            </div>
+            <ul class="features-list">
+              <li>Single or double-sided design</li>
+              <li>High-resolution print-ready files</li>
+              <li>Optimized for WhatsApp & Instagram</li>
+              <li>24 to 48-hour delivery</li>
+            </ul>
+            <button class="btn-primary full-width" onclick="openOrderModal('Flyer / Poster Design', 15)">Order Design</button>
+          </div>
+
+          <div class="pricing-card featured">
+            <div class="featured-badge">POPULAR</div>
+            <div class="card-top">
+              <h3>Full Brand Identity</h3>
+              <p class="price">$35 <span class="currency-tag">USD / ZWG equivalent</span></p>
+              <p class="price-desc">Complete branding for new businesses or a refresh.</p>
+            </div>
+            <ul class="features-list">
+              <li>Main logo & alternative versions</li>
+              <li>Color palette & font system</li>
+              <li>3D clothing & product mockups</li>
+              <li>Editable source files</li>
+            </ul>
+            <button class="btn-primary full-width" onclick="openOrderModal('Full Brand Identity', 35)">Order Package</button>
+          </div>
+
+          <div class="pricing-card">
+            <div class="card-top">
+              <h3>Full Media Package</h3>
+              <p class="price">$70 <span class="currency-tag">USD / ZWG equivalent</span></p>
+              <p class="price-desc">Ideal for active campaigns and creative launches.</p>
+            </div>
+            <ul class="features-list">
+              <li>Branding + social media assets</li>
+              <li>Event flyer set & banner package</li>
+              <li>Mockups & print-style layouts</li>
+              <li>Dedicated revisions & support</li>
+            </ul>
+            <button class="btn-primary full-width" onclick="openOrderModal('Full Media Package', 70)">Order Package</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="orderModal" class="modal">
+    <div class="modal-backdrop" onclick="closeOrderModal()"></div>
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeOrderModal()">&times;</button>
+      <div class="modal-header">
+        <h3 id="modalServiceTitle">Order Service</h3>
+        <p>Choose your payment method below to proceed.</p>
+      </div>
+
+      <form id="paynowForm">
+        <div class="form-group">
+          <label for="custName">Your Name</label>
+          <input type="text" id="custName" placeholder="Your name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="custEmail">Email Address</label>
+          <input type="email" id="custEmail" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="paymentMethod">Payment Method</label>
+          <select id="paymentMethod" required onchange="handlePaymentMethodChange()">
+            <option value="ecocash">EcoCash</option>
+            <option value="innbucks">InnBucks</option>
+            <option value="zimswitch">Zimswitch</option>
+            <option value="paygo">PayGo</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="phoneGroup">
+          <label for="custPhone">Mobile Number</label>
+          <input type="tel" id="custPhone" placeholder="077XXXXXXX" />
+        </div>
+
+        <div class="form-group">
+          <label for="custAmount">Amount</label>
+          <input type="number" id="custAmount" readonly />
+        </div>
+
+        <div id="paymentStatus" class="status-msg"></div>
+        <button type="submit" id="payBtn" class="btn-primary full-width">Pay via Paynow</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="logo-text">CWS <span>MULTIMEDIA CONNECT</span></div>
+      <p>2026 CWS Multimedia Connect. Designed by Kinton Technologies.</p>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/263774274544?text=Hello%20CWS%20Multimedia%20Connect%2C%20I%20would%20like%20to%20book%20a%20design%20service." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">WhatsApp</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
